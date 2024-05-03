@@ -2,31 +2,41 @@
 
 require 'vendor/autoload.php';
 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS, PATCH');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
 
 // import and register all business logic files (services) to FlightPHP
 require_once __DIR__ . '/rest/services/StudentServices.class.php';
 require_once __DIR__ . '/rest/services/ProfessorServices.class.php';
-require_once __DIR__ . '/rest/services/GradesServices.class.php';
-require_once __DIR__ . '/rest/services/EnrollmentsServices.class.php';
-require_once __DIR__ . '/rest/services/CoursesServices.class.php';
-require_once __DIR__ . '/rest/services/AssignmentsServices.class.php';
+require_once __DIR__ . '/rest/services/GradeServices.class.php';
+require_once __DIR__ . '/rest/services/EnrollmentServices.class.php';
+require_once __DIR__ . '/rest/services/CourseServices.class.php';
+require_once __DIR__ . '/rest/services/AssignmentServices.class.php';
+
 
 
 Flight::register('studentServices', "StudentServices");
 Flight::register('professorServices', "ProfessorServices");
-Flight::register('gradeServices', "GradesServices");
-Flight::register('enrollmentServices', "EnrollmentsServices");
-Flight::register('courseServices', "CoursesServices");
-Flight::register('assignmentServices', "AssignmentsServices");
+Flight::register('gradeServices', "GradeServices");
+Flight::register('enrollmentServices', "EnrollmentServices");
+Flight::register('courseServices', "CourseServices");
+Flight::register('assignmentServices', "AssignmentServices");
 
 
 // import all routes
 require_once __DIR__ . '/rest/routes/StudentRoutes.php';
-require_once __DIR__ . '/rest/routes/ProfessorsRoutes.php';
-require_once __DIR__ . '/rest/routes/GradesRoutes.php';
-require_once __DIR__ . '/rest/routes/EnrollmentsRoutes.php';
-require_once __DIR__ . '/rest/routes/CoursesRoutes.php';
-require_once __DIR__ . '/rest/routes/AssignmentsRoutes.php';
+require_once __DIR__ . '/rest/routes/ProfessorRoutes.php';
+require_once __DIR__ . '/rest/routes/GradeRoutes.php';
+require_once __DIR__ . '/rest/routes/EnrollmentRoutes.php';
+require_once __DIR__ . '/rest/routes/CourseRoutes.php';
+require_once __DIR__ . '/rest/routes/AssignmentRoutes.php';
 
 
 Flight::route('GET /api/', function () {

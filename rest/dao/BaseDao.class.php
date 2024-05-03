@@ -22,20 +22,23 @@ class BaseDao {
         }
     }
 
-    function query($query, $params = []) {
+    function query($query, $params) {
         $stmt = $this->connection->prepare($query);
         $stmt->execute($params);
-        return $stmt;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function get_all() {
-        $stmt = $this->query("SELECT * FROM " . $this->table);
+        $stmt = $this->connection->prepare("SELECT * FROM " . $this->table);
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function getById($id) {
-        $stmt = $this->query("SELECT * FROM " . $this->table . " WHERE id = :id", ["id" => $id]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $this->connection->prepare("SELECT * FROM ".$this->table." WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return reset($result);
     }
 
     public function add($entity) {
