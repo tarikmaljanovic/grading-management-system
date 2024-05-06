@@ -14,6 +14,9 @@ class StudentServices extends BaseServices {
     {
         return $this->dao->getUserByFirstNameAndLastName();
     }
+    public function getStudentByEmail($email){
+        return $this->dao->getStudentByEmail($email);
+      }
 
 
 }

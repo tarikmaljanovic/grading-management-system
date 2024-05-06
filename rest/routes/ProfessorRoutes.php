@@ -35,6 +35,4 @@ Flight::route('DELETE /api/professors/@id', function ($id) {
 });
 
 
-
-
 ?>

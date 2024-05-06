@@ -15,6 +15,9 @@ class ProfessorServices extends BaseServices {
         return $this->dao->getUserByFirstNameAndLastName();
     }
 
+    public function getProfessorByEmail($email){
+        return $this->dao->getProfessorByEmail($email);
+      }
 
 }
 
