@@ -15,10 +15,10 @@ Flight::route('GET /api/courses/@id/students', function ($id) {
     Flight::json(Flight::courseServices()->getStudents($id));
 });
 
+Flight::route('GET /api/courses/@id/assignments', function ($id) {
+    Flight::json(Flight::courseServices()->getAssignments($id));
+});
 
-/*Flight::route('GET /api/cars/@firstName/@lastName', function ($firstName, $lastName) {
-    Flight::json(Flight::carsServices()->getUserByFirstNameAndLastName($firstName, $lastName));
-});*/
 
 
 Flight::route('POST /api/courses', function () {

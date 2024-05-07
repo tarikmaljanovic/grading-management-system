@@ -11,10 +11,16 @@ Flight::route('GET /api/assignments/@id', function ($id) {
     Flight::json(Flight::assignmentServices()->getById($id));
 });
 
+Flight::route('GET /api/assignmentGrades/@courseId/@assingmentId', function ($courseId, $assignmentId) {
+    Flight::json(Flight::assignmentServices()->getAssignmetnGradesService($courseId, $assignmentId));
+});
 
-/*Flight::route('GET /api/cars/@firstName/@lastName', function ($firstName, $lastName) {
-    Flight::json(Flight::carsServices()->getUserByFirstNameAndLastName($firstName, $lastName));
-});*/
+Flight::route('GET /api/assignmentGrades/@courseId/@assingmentId/@studentId', function ($courseId, $assignmentId, $studentId) {
+    Flight::json(Flight::assignmentServices()->getGradesForStudentAssignmetn($courseId, $assignmentId,$studentId));
+});
+
+
+
 
 
 Flight::route('POST /api/assignments', function () {

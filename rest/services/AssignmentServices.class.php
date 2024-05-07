@@ -15,6 +15,14 @@ class AssignmentServices extends BaseServices {
         return $this->dao->getUserByFirstNameAndLastName();
     }
 
+    public function getAssignmetnGradesService($courseId, $assignmetnId) {
+        return $this->dao->getAssignmentGrades($courseId, $assignmetnId);
+    }
+
+    public function getGradesForStudentAssignmetn($courseId, $assignmetnId, $studentId) {
+        return $this->dao->getAssignmentGradesForStudent($courseId, $assignmetnId, $studentId);
+    }
+
 
 }
 
