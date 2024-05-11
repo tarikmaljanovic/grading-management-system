@@ -2,6 +2,8 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 require 'vendor/autoload.php';
 
@@ -48,7 +50,6 @@ Flight::route('GET /api/', function () {
 
 Flight::route('POST /login', function(){
     $loginData = Flight::request()->data->getData();
-    Flight::json($loginData);
     $email = $loginData['email'];
     $password = $loginData['password'];
     
@@ -60,27 +61,52 @@ Flight::route('POST /login', function(){
         return;
     }
     
+    $user = null;
+    $role = null;
+    
     if ($student) {
         if ($password == $student['password']) {
             unset($student['password']); 
-            
-            Flight::json(['student'=>$student, 'role'=>'student']);
-        }else {
-        Flight::json(["message" => "Wrong credentials or this user does not exist"], 500);
-    
-    }
-  
+            $user = $student;
+            $role = 'student';
+        } else {
+            Flight::json(["message" => "Wrong credentials or this user does not exist"], 500);
+            return;
+        }
     } else if ($professor) {
         if($password == $professor['password']) {
             unset($professor['password']); 
-            
-            Flight::json(['professor'=>$professor, 'role'=>'teacher']);
-        }else{
-            Flight::json(["message" => "Wrong credentials or this user does not exist"], 500);}}
-       
-  
-  });
-  
+            $user = $professor;
+            $role = 'professor';
+        } else {
+            Flight::json(["message" => "Wrong credentials or this user does not exist"], 500);
+            return;
+        }
+    }
+    
+    if ($role === 'student') {
+        Flight::set('studentId', $user['id']);
+    } else if ($role === 'professor') {
+        Flight::set('professorId', $user['id']);
+    }
+
+    $token = generateToken($user['id'], $role);
+
+    Flight::json(['token' => $token, 'role' => $role]);
+});
+
+function generateToken($userId, $role) {
+    $issuedAt = time();
+    $expirationTime = $issuedAt + 3600;  
+    $payload = array(
+        'user_id' => $userId,
+        'role' => $role,
+        'iat' => $issuedAt,
+        'exp' => $expirationTime
+    );
+    $token = JWT::encode($payload, 'secret_key_20202','HS256');
+    return $token;
+}
 
 
 Flight::start();

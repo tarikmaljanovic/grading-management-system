@@ -7,5 +7,6 @@ class GradesDao extends BaseDao {
     public function __construct(){
         parent::__construct('grades');
     }
+
     
 }

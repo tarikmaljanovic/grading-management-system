@@ -38,6 +38,8 @@ class BaseServices{
     {
         return $this->dao->delete($id);
     }
+
+    
 }
 
 ?>

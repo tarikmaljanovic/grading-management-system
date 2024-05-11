@@ -19,7 +19,7 @@ class AssignmentServices extends BaseServices {
         return $this->dao->getAssignmentGrades($courseId, $assignmetnId);
     }
 
-    public function getGradesForStudentAssignmetn($courseId, $assignmetnId, $studentId) {
+    public function getGradesForStudentAssignment($courseId, $assignmetnId, $studentId) {
         return $this->dao->getAssignmentGradesForStudent($courseId, $assignmetnId, $studentId);
     }
 
