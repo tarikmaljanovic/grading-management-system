@@ -92,7 +92,7 @@ Flight::route('POST /login', function(){
 
     $token = generateToken($user['id'], $role);
 
-    Flight::json(['token' => $token, 'role' => $role]);
+    Flight::json(['token' => $token, 'role' => $role, 'id'=>$user['id']]);
 });
 
 function generateToken($userId, $role) {

@@ -12,7 +12,7 @@ Flight::route('GET /api/students/@id', function ($id) {
 });
 
 
-  Flight::route('GET /api/studentcourses/:id', function($id){
+  Flight::route('GET /api/studentcourses/@id', function($id){
     $courses = Flight::studentServices()->getCoursesByStudentId($id);
     Flight::json($courses);
 });
