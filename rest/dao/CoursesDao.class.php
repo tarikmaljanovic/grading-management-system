@@ -8,6 +8,11 @@ class CoursesDao extends BaseDao {
         parent::__construct('courses');
     }
 
+
+    public function getCoursesFromProfessor($id) {
+        return $this->query("SELECT * FROM courses  WHERE professor_id = :id", ["id" => $id]);
+    }
+
     public function getStudents($id) {
         return $this->query("SELECT s.*, e.id AS 'enrollmentId' FROM courses c JOIN enrollments e ON e.course_id = c.id JOIN students s ON e.student_id = s.id WHERE c.id = :id", ["id" => $id]);
     }

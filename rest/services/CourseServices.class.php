@@ -15,6 +15,11 @@ class CourseServices extends BaseServices {
         return $this->dao->getUserByFirstNameAndLastName();
     }
 
+
+    public function getCoursesFromProfessor($id) {
+        return $this->dao->getCoursesFromProfessor($id);
+    }
+
     public function getStudents($id) {
         return $this->dao->getStudents($id);
     }
