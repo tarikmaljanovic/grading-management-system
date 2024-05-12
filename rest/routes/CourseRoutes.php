@@ -11,6 +11,10 @@ Flight::route('GET /api/courses/@id', function ($id) {
     Flight::json(Flight::courseServices()->getById($id));
 });
 
+Flight::route('GET /api/courses/professor/@professor_id', function ($id) {
+    Flight::json(Flight::courseServices()->getCoursesFromProfessor($id));
+});
+
 Flight::route('GET /api/courses/@id/students', function ($id) {
     Flight::json(Flight::courseServices()->getStudents($id));
 });
