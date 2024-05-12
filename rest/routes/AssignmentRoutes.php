@@ -19,6 +19,10 @@ Flight::route('GET /api/assignmentGrades/@courseId/@assingmentId/@studentId', fu
     Flight::json(Flight::assignmentServices()->getGradesForStudentAssignment($courseId, $assignmentId,$studentId));
 });
 
+Flight::route('GET /api/course/{courseId}/assignmentGrades/{studentId}', function ($courseId, $studentId) {
+    Flight::json(Flight::assignmentServices()->getGradesForStudentAssignment($courseId ,$studentId));
+});
+
 
 
 Flight::route('POST /api/assignments', function () {
