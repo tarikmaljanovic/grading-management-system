@@ -48,6 +48,8 @@ Flight::route('GET /api/', function () {
     echo "Hello";
 });
 
+
+
 Flight::route('POST /login', function(){
     $loginData = Flight::request()->data->getData();
     $email = $loginData['email'];
@@ -55,6 +57,10 @@ Flight::route('POST /login', function(){
     
     $student = Flight::studentServices()->getStudentByEmail($email);
     $professor = Flight::professorServices()->getProfessorByEmail($email);
+    $admin=false;
+    if($professor && $professor['isAdmin']=="1"){
+        $admin=true;
+    }
   
     if (!$student && !$professor) {
         Flight::json(["message" => "User not found"], 404);
@@ -73,11 +79,21 @@ Flight::route('POST /login', function(){
             Flight::json(["message" => "Wrong credentials or this user does not exist"], 500);
             return;
         }
-    } else if ($professor) {
+    } else if ($professor && !$admin) {
         if($password == $professor['password']) {
             unset($professor['password']); 
             $user = $professor;
             $role = 'professor';
+        } else {
+            Flight::json(["message" => "Wrong credentials or this user does not exist"], 500);
+            return;
+        }
+    }
+    else if ($professor && $admin) {
+        if($password == $professor['password']) {
+            unset($professor['password']); 
+            $user = $professor;
+            $role = 'admin';
         } else {
             Flight::json(["message" => "Wrong credentials or this user does not exist"], 500);
             return;
