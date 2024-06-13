@@ -22,6 +22,10 @@ class CourseServices extends BaseServices {
     public function getAssignments($id) {
         return $this->dao->getAssignments($id);
     }
+    
+    public function getAssignmentsWithGrades($courseId, $studentId) {
+        return $this->dao->getAssignmentsWithGrades($courseId, $studentId);
+    }
 
 
 }
