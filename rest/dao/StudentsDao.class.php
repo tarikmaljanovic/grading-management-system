@@ -28,6 +28,11 @@ class StudentsDao extends BaseDao {
         return $courses;
                   
     }
+
+
+    public function changePasswordStudent($id, $newPassword) {
+        return $this->query("UPDATE students SET password = :password WHERE id = :id", ['id' => $id, 'password' => $newPassword]);
+    }
     
     
     

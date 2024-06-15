@@ -19,6 +19,18 @@ class ProfessorServices extends BaseServices {
         return $this->dao->getProfessorByEmail($email);
       }
 
+    public function changePassword($id, $data) {
+        $newPassword = $data['password'];
+       /* $repeated = $data['repeatedPassword'];
+        
+        if ($newPassword === $repeated) {
+            return $this->dao->changePassword($id, $newPassword);
+        } else {
+            return Flight::json(['error' => true, 'message' => "Passwords do not match"]);
+        }*/
+        return $this->dao->changePassword($id, $newPassword);
+    }
+
 }
 
 
