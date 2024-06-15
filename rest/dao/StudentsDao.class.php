@@ -14,7 +14,7 @@ class StudentsDao extends BaseDao {
       }
     public function getCoursesByStudentId($studentId) {
     
-        $query="SELECT c.title, c.description, c.courseCode
+        $query="SELECT c.id, c.title, c.description, c.courseCode
         FROM students AS s
         JOIN enrollments AS e ON e.student_id = s.id
         JOIN courses AS c ON e.course_id = c.id

@@ -42,6 +42,11 @@ Flight::route('DELETE /api/courses/@id', function ($id) {
     Flight::courseServices()->delete($id);
 });
 
+Flight::route('GET /api/courseAssignmentsGrades/@courseId/@studentId', function($courseId, $studentId) {
+    $assignmentsWithGrades = Flight::courseServices()->getAssignmentsWithGrades($courseId, $studentId);
+    Flight::json($assignmentsWithGrades);
+});
+
 
 
 
