@@ -10,14 +10,25 @@ class BaseDao {
     public function __construct($table) {
         $this->table = $table;
         try {
-            $this->connection = new PDO(
-                "mysql:host=" . Config::DB_HOST() . ";dbname=" . Config::DB_SCHEMA() . ";port=" . Config::DB_PORT(),
-                Config::DB_USERNAME(),
-                Config::DB_PASSWORD(), [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-                ]
-            );
+            $db_info = array(
+                'host' => Config::DB_HOST(),
+                'port' => Config::DB_PORT(),
+                'name' => Config::DB_SCHEMA(),
+                'user' => Config::DB_USERNAME(),
+                'pass' => Config::DB_PASSWORD()
+                );
+      
+                $options = array(
+                  PDO::MYSQL_ATTR_SSL_CA => 'https://drive.google.com/file/d/1Kd6gF0QbgjGkWS36anKuSEjZbO7CPs1j/view?usp=drive_link',
+                  PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
+        
+                );
+      
+              $this->table_name = $table_name;
+      
+              $this->conn = new PDO( 'mysql:host=' . $db_info['host'] . ';port=' . $db_info['port'] . ';dbname=' . $db_info['name'], $db_info['user'], $db_info['pass'], $options );
+              
+              $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e){
             throw $e;
         }
