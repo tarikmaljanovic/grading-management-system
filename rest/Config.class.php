@@ -2,15 +2,15 @@
 
 class Config {
     public static function DB_HOST(){
-      return '127.0.01';
+      return 'dynamic-db-do-user-14018578-0.c.db.ondigitalocean.com';
     }
 
     public static function DB_USERNAME(){
-      return 'root';
+      return 'doadmin';
     }
 
     public static function DB_PASSWORD(){
-      return 'stardust';
+      return 'AVNS_wXC94p4UIA6p4cL5wcd';
     }
 
     public static function DB_SCHEMA(){
@@ -18,7 +18,7 @@ class Config {
     }
 
     public static function DB_PORT(){
-        return 3306;
+        return 25060;
     }
 
     public static function JWT_SECRET(){
